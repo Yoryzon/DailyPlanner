@@ -83,11 +83,3 @@ class TasksCreateDialog(QDialog, Ui_TasksCreateWindow):
     def cancel_event(self):
         self.close()
 
-
-if __name__ == "__main__":
-    import sys
-
-    app = QApplication(sys.argv)
-    window = TasksCreateDialog()
-    window.show()
-    sys.exit(app.exec_())

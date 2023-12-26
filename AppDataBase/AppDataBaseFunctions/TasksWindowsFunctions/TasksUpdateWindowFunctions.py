@@ -120,12 +120,3 @@ class TasksUpdateDialog(QDialog, Ui_TasksUpdateWindow):
 
     def cancel_update(self):
         self.close()
-
-
-if __name__ == "__main__":
-    import sys
-
-    app = QApplication(sys.argv)
-    window = TasksUpdateDialog()
-    window.show()
-    sys.exit(app.exec_())

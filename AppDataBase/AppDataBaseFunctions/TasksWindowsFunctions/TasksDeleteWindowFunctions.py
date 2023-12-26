@@ -122,12 +122,3 @@ class TasksDeleteDialog(QDialog, Ui_TasksDeleteWindow):
 
     def cancel_deletion(self):
         self.close()
-
-
-if __name__ == "__main__":
-    import sys
-
-    app = QApplication(sys.argv)
-    window = TasksDeleteDialog()
-    window.show()
-    sys.exit(app.exec_())
