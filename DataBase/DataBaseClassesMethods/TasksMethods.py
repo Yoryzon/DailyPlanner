@@ -10,14 +10,10 @@ session = SessionFactory()
 
 class TaskManager:
     @staticmethod
-    def create_task(task_name, description, due_date, priority, status, event_id=None):
+    def create_task(task_name, description, due_date, priority, status, event_id):
         try:
             new_task = Tasks(TaskName=task_name, Description=description, DueDate=due_date, Priority=priority,
-                             Status=status)
-            if event_id:
-                event = session.query(Events).filter_by(EventID=event_id).first()
-                if event:
-                    new_task.event = event
+                             Status=status, EventID=event_id)
             session.add(new_task)
             session.commit()
             return new_task
@@ -51,9 +47,7 @@ class TaskManager:
                 if new_status:
                     task.Status = new_status
                 if new_event_id:
-                    event = session.query(Events).filter_by(EventID=new_event_id).first()
-                    if event:
-                        task.event = event
+                    task.EventID = new_event_id
                 session.commit()
                 return task
             return None
@@ -98,4 +92,12 @@ class TaskManager:
             return session.query(Tasks).filter(Tasks.Description.ilike(f"%{description}%")).all()
         except SQLAlchemyError as e:
             print(f"Error searching tasks by description: {e}")
+            return []
+
+    @staticmethod
+    def search_tasks_by_event_id(event_id):
+        try:
+            return session.query(Tasks).filter(Tasks.EventID == event_id).all()
+        except SQLAlchemyError as e:
+            print(f"Error searching tasks by event ID: {e}")
             return []

@@ -19,7 +19,7 @@ class Tasks(Base):
     TaskName = mapped_column(String(100))
     Description = mapped_column(Text)
     DueDate = mapped_column(Date)
-    Priority = mapped_column(Integer)
+    Priority = mapped_column(String(100))
     Status = mapped_column(String(20))
     EventID = mapped_column(Integer)
 
