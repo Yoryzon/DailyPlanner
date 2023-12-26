@@ -12,11 +12,7 @@ class NoteManager:
     @staticmethod
     def create_note(title, content, created_date, task_id=None):
         try:
-            new_note = Notes(Title=title, Content=content, CreatedDate=created_date)
-            if task_id:
-                task = session.query(Tasks).filter_by(TaskID=task_id).first()
-                if task:
-                    new_note.task = task
+            new_note = Notes(Title=title, Content=content, CreatedDate=created_date, TaskID=task_id)
             session.add(new_note)
             session.commit()
             return new_note
@@ -45,9 +41,7 @@ class NoteManager:
                 if new_created_date:
                     note.CreatedDate = new_created_date
                 if new_task_id:
-                    task = session.query(Tasks).filter_by(TaskID=new_task_id).first()
-                    if task:
-                        note.task = task
+                    note.TaskID = new_task_id
                 session.commit()
                 return note
             return None
@@ -92,4 +86,12 @@ class NoteManager:
             return session.query(Notes).filter(Notes.Content.ilike(f"%{content}%")).all()
         except SQLAlchemyError as e:
             print(f"Error searching notes by content: {e}")
+            return []
+
+    @staticmethod
+    def search_notes_by_task_id(task_id):
+        try:
+            return session.query(Notes).filter(Notes.TaskID == task_id).all()
+        except SQLAlchemyError as e:
+            print(f"Error searching notes by task ID: {e}")
             return []
