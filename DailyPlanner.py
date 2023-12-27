@@ -28,6 +28,7 @@ class DailyPlannerFunctions(QMainWindow, Ui_DailyPlanner):
         self.TasksButton.clicked.connect(self.open_tasks_dialog)
         self.ContactsButton.clicked.connect(self.open_contacts_dialog)
         self.NotesButton.clicked.connect(self.open_notes_dialog)
+        self.CancelButton.clicked.connect(self.close)
 
     def load_events(self):
         try:

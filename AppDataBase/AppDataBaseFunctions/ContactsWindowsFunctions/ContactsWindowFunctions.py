@@ -1,7 +1,6 @@
-from PyQt5.QtWidgets import QDialog, QMessageBox, QApplication, QTableView
-from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QDialog, QMessageBox, QTableView
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtCore import Qt
+from sqlalchemy.exc import SQLAlchemyError
 
 from DataBase.DataBaseClassesMethods.ContactsMethods import ContactManager
 from DataBase.DataBaseClassesMethods.EventsMethods import EventManager
@@ -118,12 +117,3 @@ class ContactsWindowDialog(QDialog, Ui_ContactsWindow):
 
     def cancel_action(self):
         self.close()
-
-
-if __name__ == "__main__":
-    import sys
-
-    app = QApplication(sys.argv)
-    window = ContactsWindowDialog()
-    window.show()
-    sys.exit(app.exec_())

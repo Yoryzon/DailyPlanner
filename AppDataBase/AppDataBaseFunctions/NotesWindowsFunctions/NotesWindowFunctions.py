@@ -1,7 +1,6 @@
-from PyQt5.QtWidgets import QDialog, QMessageBox, QApplication, QTableView
-from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QDialog, QMessageBox, QTableView
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtCore import Qt
+from sqlalchemy.exc import SQLAlchemyError
 
 from DataBase.DataBaseClassesMethods.NotesMethods import NoteManager
 from DataBase.DataBaseClassesMethods.TasksMethods import TaskManager
@@ -114,12 +113,3 @@ class NotesWindowDialog(QDialog, Ui_NotesWindow):
 
     def cancel_action(self):
         self.close()
-
-
-if __name__ == "__main__":
-    import sys
-
-    app = QApplication(sys.argv)
-    window = NotesWindowDialog()
-    window.show()
-    sys.exit(app.exec_())

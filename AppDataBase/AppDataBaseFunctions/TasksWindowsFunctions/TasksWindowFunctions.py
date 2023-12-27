@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import QDialog, QMessageBox, QApplication, QTableView
-from PyQt5 import QtWidgets
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtCore import Qt
+from sqlalchemy.exc import SQLAlchemyError
 
 from DataBase.DataBaseClassesMethods.TasksMethods import TaskManager
 from DataBase.DataBaseClassesMethods.EventsMethods import EventManager

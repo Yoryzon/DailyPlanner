@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QDialog
-from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
-from PyQt5.QtWidgets import QMessageBox, QTableView, QApplication
+from PyQt5.QtWidgets import QMessageBox, QTableView
+from sqlalchemy.exc import SQLAlchemyError
 
 from DataBase.DataBaseClassesMethods.EventsMethods import EventManager
 from AppDataBase.AppDataBaseUI.EventsWindowsUI.EventsWindow import Ui_EventsWindow
@@ -25,33 +25,37 @@ class EventsWindowDialog(QDialog, Ui_EventsWindow):
         self.UpdateTheTableButton.clicked.connect(self.load_events_table)
 
     def load_events_table(self):
-        events = EventManager.get_all_events()
+        try:
+            events = EventManager.get_all_events()
 
-        model = QStandardItemModel(len(events), 6)
-        model.setHorizontalHeaderLabels(["Event ID", "Title", "Description", "Event Date", "Start Time", "End Time"])
+            model = QStandardItemModel(len(events), 6)
+            model.setHorizontalHeaderLabels(
+                ["Event ID", "Title", "Description", "Event Date", "Start Time", "End Time"])
 
-        for row, event in enumerate(events):
-            event_id_item = QStandardItem(str(event.EventID))
-            event_id_item.setEditable(False)
-            model.setItem(row, 0, event_id_item)
+            for row, event in enumerate(events):
+                event_id_item = QStandardItem(str(event.EventID))
+                event_id_item.setEditable(False)
+                model.setItem(row, 0, event_id_item)
 
-            title_item = QStandardItem(event.Title)
-            model.setItem(row, 1, title_item)
+                title_item = QStandardItem(event.Title)
+                model.setItem(row, 1, title_item)
 
-            description_item = QStandardItem(event.Description)
-            model.setItem(row, 2, description_item)
+                description_item = QStandardItem(event.Description)
+                model.setItem(row, 2, description_item)
 
-            event_date_item = QStandardItem(str(event.EventDate))
-            model.setItem(row, 3, event_date_item)
+                event_date_item = QStandardItem(str(event.EventDate))
+                model.setItem(row, 3, event_date_item)
 
-            start_time_item = QStandardItem(str(event.StartTime))
-            model.setItem(row, 4, start_time_item)
+                start_time_item = QStandardItem(str(event.StartTime))
+                model.setItem(row, 4, start_time_item)
 
-            end_time_item = QStandardItem(str(event.EndTime))
-            model.setItem(row, 5, end_time_item)
+                end_time_item = QStandardItem(str(event.EndTime))
+                model.setItem(row, 5, end_time_item)
 
-        self.ViewingEventsTableView.setModel(model)
-        self.ViewingEventsTableView.setSelectionBehavior(QTableView.SelectRows)
+            self.ViewingEventsTableView.setModel(model)
+            self.ViewingEventsTableView.setSelectionBehavior(QTableView.SelectRows)
+        except SQLAlchemyError as e:
+            QMessageBox.critical(self, 'Error', f'Error loading events: {str(e)}')
 
     @staticmethod
     def create_event():
@@ -67,12 +71,3 @@ class EventsWindowDialog(QDialog, Ui_EventsWindow):
     def update_event():
         update_dialog = EventsUpdateDialog()
         update_dialog.exec_()
-
-
-if __name__ == "__main__":
-    import sys
-
-    app = QApplication(sys.argv)
-    my_events_window = EventsWindowDialog()
-    my_events_window.show()
-    sys.exit(app.exec_())
