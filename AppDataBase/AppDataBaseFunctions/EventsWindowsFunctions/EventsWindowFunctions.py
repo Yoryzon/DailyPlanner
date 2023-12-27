@@ -10,7 +10,7 @@ from AppDataBase.AppDataBaseFunctions.EventsWindowsFunctions.EventsDeleteWindowF
 from AppDataBase.AppDataBaseFunctions.EventsWindowsFunctions.EventsUpdateWindowFunctions import EventsUpdateDialog
 
 
-class MyEventsWindow(QDialog, Ui_EventsWindow):
+class EventsWindowDialog(QDialog, Ui_EventsWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -73,6 +73,6 @@ if __name__ == "__main__":
     import sys
 
     app = QApplication(sys.argv)
-    my_events_window = MyEventsWindow()
+    my_events_window = EventsWindowDialog()
     my_events_window.show()
     sys.exit(app.exec_())
