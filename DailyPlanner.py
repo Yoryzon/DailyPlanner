@@ -2,9 +2,21 @@ from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication, QTableView
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
 from AppDataBase.AppDataBase import Ui_DailyPlanner
+from AppDataBase.AppDataBaseFunctions.ContactsWindowsFunctions.ContactsCreateWindowFunctions import ContactsCreateDialog
+from AppDataBase.AppDataBaseFunctions.ContactsWindowsFunctions.ContactsDeleteWindowFunctions import ContactsDeleteDialog
+from AppDataBase.AppDataBaseFunctions.ContactsWindowsFunctions.ContactsUpdateWindowFunctions import ContactsUpdateDialog
 from AppDataBase.AppDataBaseFunctions.ContactsWindowsFunctions.ContactsWindowFunctions import ContactsWindowDialog
+from AppDataBase.AppDataBaseFunctions.EventsWindowsFunctions.EventsCreateWindowFunctions import EventsCreateDialog
+from AppDataBase.AppDataBaseFunctions.EventsWindowsFunctions.EventsDeleteWindowFunctions import EventsDeleteDialog
+from AppDataBase.AppDataBaseFunctions.EventsWindowsFunctions.EventsUpdateWindowFunctions import EventsUpdateDialog
 from AppDataBase.AppDataBaseFunctions.EventsWindowsFunctions.EventsWindowFunctions import EventsWindowDialog
+from AppDataBase.AppDataBaseFunctions.NotesWindowsFunctions.NotesCreateWindowFunctions import NotesCreateDialog
+from AppDataBase.AppDataBaseFunctions.NotesWindowsFunctions.NotesDeleteWindowFunctions import NotesDeleteDialog
+from AppDataBase.AppDataBaseFunctions.NotesWindowsFunctions.NotesUpdateWindowFunctions import NotesUpdateDialog
 from AppDataBase.AppDataBaseFunctions.NotesWindowsFunctions.NotesWindowFunctions import NotesWindowDialog
+from AppDataBase.AppDataBaseFunctions.TasksWindowsFunctions.TasksCreateWindowFunctions import TasksCreateDialog
+from AppDataBase.AppDataBaseFunctions.TasksWindowsFunctions.TasksDeleteWindowFunctions import TasksDeleteDialog
+from AppDataBase.AppDataBaseFunctions.TasksWindowsFunctions.TasksUpdateWindowFunctions import TasksUpdateDialog
 from AppDataBase.AppDataBaseFunctions.TasksWindowsFunctions.TasksWindowFunctions import TasksWindowDialog
 from DataBase.DataBaseClassesMethods.EventsMethods import EventManager
 from DataBase.DataBaseClassesMethods.TasksMethods import TaskManager
@@ -22,6 +34,21 @@ class DailyPlannerFunctions(QMainWindow, Ui_DailyPlanner):
         self.EventsTableView.clicked.connect(self.load_tasks)
         self.EventsTableView.clicked.connect(self.load_contacts)
         self.TasksForTheEventsTableView.clicked.connect(self.load_notes)
+
+        self.ActionCreateEvent.triggered.connect(self.open_create_event_dialog)
+        self.ActionCreateTask.triggered.connect(self.open_create_task_dialog)
+        self.ActionCreateContact.triggered.connect(self.open_create_contact_dialog)
+        self.ActionCreateNote.triggered.connect(self.open_create_note_dialog)
+
+        self.ActionUpdateEvent.triggered.connect(self.open_update_event_dialog)
+        self.ActionUpdateTask.triggered.connect(self.open_update_task_dialog)
+        self.ActionUpdateContact.triggered.connect(self.open_update_contact_dialog)
+        self.ActionUpdateNote.triggered.connect(self.open_update_note_dialog)
+
+        self.ActionDeleteEvent.triggered.connect(self.open_delete_event_dialog)
+        self.ActionDeleteTask.triggered.connect(self.open_delete_task_dialog)
+        self.ActionDeleteContact.triggered.connect(self.open_delete_contact_dialog)
+        self.ActionDeleteNote.triggered.connect(self.open_delete_note_dialog)
 
     def setup_connections(self):
         self.EventsButton.clicked.connect(self.open_events_dialog)
@@ -179,6 +206,66 @@ class DailyPlannerFunctions(QMainWindow, Ui_DailyPlanner):
     def open_notes_dialog():
         notes_window = NotesWindowDialog()
         notes_window.exec_()
+
+    @staticmethod
+    def open_create_event_dialog():
+        create_event_dialog = EventsCreateDialog()
+        create_event_dialog.exec_()
+
+    @staticmethod
+    def open_create_task_dialog():
+        create_task_dialog = TasksCreateDialog()
+        create_task_dialog.exec_()
+
+    @staticmethod
+    def open_create_contact_dialog():
+        create_contact_dialog = ContactsCreateDialog()
+        create_contact_dialog.exec_()
+
+    @staticmethod
+    def open_create_note_dialog():
+        create_note_dialog = NotesCreateDialog()
+        create_note_dialog.exec_()
+
+    @staticmethod
+    def open_update_event_dialog():
+        update_event_dialog = EventsUpdateDialog()
+        update_event_dialog.exec_()
+
+    @staticmethod
+    def open_update_task_dialog():
+        update_task_dialog = TasksUpdateDialog()
+        update_task_dialog.exec_()
+
+    @staticmethod
+    def open_update_contact_dialog():
+        update_contact_dialog = ContactsUpdateDialog()
+        update_contact_dialog.exec_()
+
+    @staticmethod
+    def open_update_note_dialog():
+        update_note_dialog = NotesUpdateDialog()
+        update_note_dialog.exec_()
+
+    @staticmethod
+    def open_delete_event_dialog():
+        delete_event_dialog = EventsDeleteDialog()
+        delete_event_dialog.exec_()
+
+    @staticmethod
+    def open_delete_task_dialog():
+        delete_task_dialog = TasksDeleteDialog()
+        delete_task_dialog.exec_()
+
+    @staticmethod
+    def open_delete_contact_dialog():
+        delete_contact_dialog = ContactsDeleteDialog()
+        delete_contact_dialog.exec_()
+
+    @staticmethod
+    def open_delete_note_dialog():
+        delete_note_dialog = NotesDeleteDialog()
+        delete_note_dialog.exec_()
 
 
 if __name__ == "__main__":
