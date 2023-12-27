@@ -1,16 +1,15 @@
 from PyQt5.QtWidgets import QMainWindow, QMessageBox, QApplication, QTableView
 from PyQt5.QtGui import QStandardItemModel, QStandardItem
 
+from AppDataBase.AppDataBase import Ui_DailyPlanner
+from AppDataBase.AppDataBaseFunctions.ContactsWindowsFunctions.ContactsWindowFunctions import ContactsWindowDialog
+from AppDataBase.AppDataBaseFunctions.EventsWindowsFunctions.EventsWindowFunctions import EventsWindowDialog
+from AppDataBase.AppDataBaseFunctions.NotesWindowsFunctions.NotesWindowFunctions import NotesWindowDialog
+from AppDataBase.AppDataBaseFunctions.TasksWindowsFunctions.TasksWindowFunctions import TasksWindowDialog
 from DataBase.DataBaseClassesMethods.EventsMethods import EventManager
 from DataBase.DataBaseClassesMethods.TasksMethods import TaskManager
 from DataBase.DataBaseClassesMethods.NotesMethods import NoteManager
 from DataBase.DataBaseClassesMethods.ContactsMethods import ContactManager
-
-from AppDataBase import Ui_DailyPlanner
-from AppDataBaseFunctions.EventsWindowsFunctions.EventsWindowFunctions import EventsWindowDialog
-from AppDataBaseFunctions.TasksWindowsFunctions.TasksWindowFunctions import TasksWindowDialog
-from AppDataBaseFunctions.ContactsWindowsFunctions.ContactsWindowFunctions import ContactsWindowDialog
-from AppDataBaseFunctions.NotesWindowsFunctions.NotesWindowFunctions import NotesWindowDialog
 
 
 class DailyPlannerFunctions(QMainWindow, Ui_DailyPlanner):
@@ -163,22 +162,22 @@ class DailyPlannerFunctions(QMainWindow, Ui_DailyPlanner):
     @staticmethod
     def open_events_dialog():
         events_window = EventsWindowDialog()
-        events_window.show()
+        events_window.exec_()
 
     @staticmethod
     def open_tasks_dialog():
         tasks_window = TasksWindowDialog()
-        tasks_window.show()
+        tasks_window.exec_()
 
     @staticmethod
     def open_contacts_dialog():
         contacts_window = ContactsWindowDialog()
-        contacts_window.show()
+        contacts_window.exec_()
 
     @staticmethod
     def open_notes_dialog():
         notes_window = NotesWindowDialog()
-        notes_window.show()
+        notes_window.exec_()
 
 
 if __name__ == "__main__":
