@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>NotesCreateWindow</class>
- <widget class="QDialog" name="NotesCreateWindow">
+ <class>NotesUpdateWindow</class>
+ <widget class="QDialog" name="NotesUpdateWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -25,7 +25,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QGroupBox" name="CreateNoteBox">
+  <widget class="QGroupBox" name="UpdateNoteBox">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -35,7 +35,7 @@
     </rect>
    </property>
    <property name="title">
-    <string>Create Note</string>
+    <string>Update Note</string>
    </property>
    <widget class="QGroupBox" name="TitleBox">
     <property name="geometry">
@@ -153,7 +153,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="CreateNoteButton">
+      <widget class="QPushButton" name="UpdateNoteButton">
        <property name="text">
         <string>Update Note</string>
        </property>

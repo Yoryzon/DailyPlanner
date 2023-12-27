@@ -17,7 +17,7 @@ class TasksUpdateDialog(QDialog, Ui_TasksUpdateWindow):
         self.load_tasks_table(None)
 
     def setup_connections(self):
-        self.UpdateTaskButton.clicked.connect(self.update_task)
+        self.UpdateTaskButton.clicked.connect(self.confirm_update_task)
         self.CancelButton.clicked.connect(self.cancel_update)
         self.EventsTableView.clicked.connect(self.load_tasks_for_selected_event)
 
@@ -111,12 +111,23 @@ class TasksUpdateDialog(QDialog, Ui_TasksUpdateWindow):
                 if updated_task:
                     QMessageBox.information(self, 'Success', 'Task updated successfully.')
                     self.load_tasks_for_selected_event()
+                    self.close()
                 else:
                     QMessageBox.critical(self, 'Error', 'Error updating task.')
             else:
                 QMessageBox.warning(self, 'Warning', 'Please select a task to update.')
         except SQLAlchemyError as e:
             QMessageBox.critical(self, 'Error', f'Error updating task: {str(e)}')
+
+    def confirm_update_task(self):
+        confirmation = QMessageBox.question(
+            self, 'Confirmation', 'Are you sure you want to update the task?',
+            QMessageBox.Yes | QMessageBox.No, QMessageBox.No
+        )
+        if confirmation == QMessageBox.Yes:
+            self.update_task()
+        else:
+            pass
 
     def cancel_update(self):
         self.close()

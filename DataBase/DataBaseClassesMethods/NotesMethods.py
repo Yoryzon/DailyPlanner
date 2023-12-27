@@ -10,7 +10,7 @@ session = SessionFactory()
 
 class NoteManager:
     @staticmethod
-    def create_note(title, content, created_date, task_id=None):
+    def create_note(title, content, created_date, task_id):
         try:
             new_note = Notes(Title=title, Content=content, CreatedDate=created_date, TaskID=task_id)
             session.add(new_note)

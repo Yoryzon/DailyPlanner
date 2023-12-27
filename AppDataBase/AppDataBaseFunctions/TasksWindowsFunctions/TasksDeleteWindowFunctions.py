@@ -111,6 +111,7 @@ class TasksDeleteDialog(QDialog, Ui_TasksDeleteWindow):
                     if deleted:
                         QMessageBox.information(self, 'Success', 'Task deleted successfully.')
                         self.load_tasks_for_selected_event()
+                        self.close()
                     else:
                         QMessageBox.critical(self, 'Error', 'Error deleting task.')
                 else:

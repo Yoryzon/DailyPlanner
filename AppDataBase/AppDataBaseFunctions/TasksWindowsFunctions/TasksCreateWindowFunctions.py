@@ -17,7 +17,7 @@ class TasksCreateDialog(QDialog, Ui_TasksCreateWindow):
         self.load_events_table()
 
     def setup_connections(self):
-        self.CreateTaskButton.clicked.connect(self.create_task)
+        self.CreateTaskButton.clicked.connect(self.confirm_create_task)
         self.CancelButton.clicked.connect(self.cancel_event)
 
     def load_events_table(self):
@@ -53,6 +53,16 @@ class TasksCreateDialog(QDialog, Ui_TasksCreateWindow):
         except SQLAlchemyError as e:
             QMessageBox.critical(self, 'Error', f'Error loading events: {str(e)}')
 
+    def confirm_create_task(self):
+        confirmation = QMessageBox.question(
+            self, 'Confirmation', 'Are you sure you want to create the task?',
+            QMessageBox.Yes | QMessageBox.No, QMessageBox.No
+        )
+        if confirmation == QMessageBox.Yes:
+            self.create_task()
+        else:
+            pass
+
     def create_task(self):
         try:
             selected_row = self.EventsTableView.currentIndex().row()
@@ -82,4 +92,3 @@ class TasksCreateDialog(QDialog, Ui_TasksCreateWindow):
 
     def cancel_event(self):
         self.close()
-
