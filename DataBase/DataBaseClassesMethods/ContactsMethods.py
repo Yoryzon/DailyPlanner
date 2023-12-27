@@ -10,13 +10,9 @@ session = SessionFactory()
 
 class ContactManager:
     @staticmethod
-    def create_contact(full_name, phone, email, address, event_id=None):
+    def create_contact(full_name, phone, email, address, event_id):
         try:
-            new_contact = Contacts(FullName=full_name, Phone=phone, Email=email, Address=address)
-            if event_id:
-                event = session.query(Events).filter_by(EventID=event_id).first()
-                if event:
-                    new_contact.event = event
+            new_contact = Contacts(FullName=full_name, Phone=phone, Email=email, Address=address, EventID=event_id)
             session.add(new_contact)
             session.commit()
             return new_contact
@@ -48,9 +44,7 @@ class ContactManager:
                 if new_address:
                     contact.Address = new_address
                 if new_event_id:
-                    event = session.query(Events).filter_by(EventID=new_event_id).first()
-                    if event:
-                        contact.event = event
+                    contact.EventID = new_event_id
                 session.commit()
                 return contact
             return None
@@ -95,4 +89,12 @@ class ContactManager:
             return session.query(Contacts).filter(Contacts.Email.ilike(f"%{email}%")).all()
         except SQLAlchemyError as e:
             print(f"Error searching contacts by email: {e}")
+            return []
+
+    @staticmethod
+    def search_contacts_by_event_id(event_id):
+        try:
+            return session.query(Contacts).filter(Contacts.EventID == event_id).all()
+        except SQLAlchemyError as e:
+            print(f"Error searching tasks by event ID: {e}")
             return []
